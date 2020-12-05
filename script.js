@@ -1,8 +1,47 @@
+/* This block of code shows how to format the HTML once you fetch some planetary JSON!
+<h2>Mission Destination</h2>
+<ol>
+   <li>Name: ${}</li>
+   <li>Diameter: ${}</li>
+   <li>Star: ${}</li>
+   <li>Distance from Earth: ${}</li>
+   <li>Number of Moons: ${}</li>
+</ol>
+<img src="${}">
+*/
+
 // Write your JavaScript code here!
 window.onload = main;
 
 // *******************MAIN**************************
 function main(){
+
+   document.querySelector("form").reset();   
+    
+   
+   fetch("https://handlers.education.launchcode.org/static/planets.json").then(function(response) {
+      // Access the JSON in the response
+      response.json().then(function(json) {
+         console.log(json);
+         let randomDestinationNumber = Math.floor(Math.random() * json.length);
+         let htmlString =
+            `<h2>Mission Destination</h2>
+            <ol>
+               <li>Name: ${json[randomDestinationNumber].name}</li>
+               <li>Diameter: ${json[randomDestinationNumber].diameter}</li>
+               <li>Star: ${json[randomDestinationNumber].star}</li>
+               <li>Distance from Earth: ${json[randomDestinationNumber].distance}</li>
+               <li>Number of Moons: ${json[randomDestinationNumber].moons}</li>
+            </ol>
+            <img src="${json[randomDestinationNumber].image}">`;
+
+         let missionTargetDiv = document.getElementById("missionTarget");
+         missionTargetDiv.innerHTML = htmlString;
+      });
+   });
+
+
+
    let submit_button = document.getElementById("formSubmit");
    submit_button.onclick = function(){
       if (isValid()){
@@ -14,6 +53,8 @@ function main(){
 }
 
 // **********************FUNCTIONS*************************
+
+
 function updateShuttleRequirements(){
    console.log ("in updateShuttleRequirements...");
 
@@ -104,14 +145,3 @@ function isValid() {
    return true;
 }
 
-/* This block of code shows how to format the HTML once you fetch some planetary JSON!
-<h2>Mission Destination</h2>
-<ol>
-   <li>Name: ${}</li>
-   <li>Diameter: ${}</li>
-   <li>Star: ${}</li>
-   <li>Distance from Earth: ${}</li>
-   <li>Number of Moons: ${}</li>
-</ol>
-<img src="${}">
-*/
