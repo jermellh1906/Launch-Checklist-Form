@@ -46,6 +46,7 @@ function main(){
    submit_button.onclick = function(){
       if (isValid()){
          updateShuttleRequirements();
+         document.querySelector("form").reset();
       } else {
          console.log ("isValid failed...");
       }
@@ -74,8 +75,7 @@ function updateShuttleRequirements(){
    
    let fuelLevelTextField = document.querySelector("input[name=fuelLevel]");
    let cargoMassTextField = document.querySelector("input[name=cargoMass]");
-   console.log(cargoMassTextField.value);
-   console.log(fuelLevelTextField.value);
+   console.log("fuel level: " + fuelLevelTextField.value);
 
    if(fuelLevelTextField.value < minFuelAmount) {
       document.getElementById("faultyItems").style.visibility = "visible";
